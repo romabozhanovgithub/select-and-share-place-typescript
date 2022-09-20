@@ -21,7 +21,12 @@ const searchAddressHandler = (event: Event) => {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
+        const coordinates = data.results[0].geometry.location;
+        const map = new google.maps.Map(document.getElementById("map")!, {
+            center: coordinates,
+            zoom: 8
+        });
+        new google.maps.Marker({ position: coordinates, map: map });
     }).catch(err => {
         console.log(err.message);
     });
